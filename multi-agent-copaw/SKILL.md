@@ -1,5 +1,5 @@
 ---
-name: multi_agent_collab
+name: multi-agent-copaw
 description: "CoPaw 2.0 多智能体协作技能 — 搭建、配置和管理多智能体协作系统：创建智能体、启用 multi_agent_collaboration 协作技能、智能体间对话、后台任务、spawn_subagent 子任务、结果汇总。触发词：多智能体、多智能体协作、智能体团队、agent 协作、多个智能体、让别的智能体、CoPaw 多智能体、multi-agent collaboration、智能体互聊。"
 metadata:
   {

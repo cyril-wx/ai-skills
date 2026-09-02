@@ -1,4 +1,4 @@
-# CoPaw 2.0 多智能体协作技能 (multi_agent_collab)
+# CoPaw 2.0 多智能体协作技能 (multi-agent-copaw)
 
 🤝 **快速搭建和管理 CoPaw 2.0 多智能体协作系统**（`builtin_skill_version: 2.1`）
 
@@ -25,14 +25,14 @@
 
 ```bash
 # 创建内容创作团队（4 个智能体）
-python3 ~/.qwenpaw/workspaces/default/skills/multi_agent_collab/multi_agent_setup.py --team content
+python3 ~/.qwenpaw/workspaces/default/skills/multi-agent-copaw/multi_agent_setup.py --team content
 
 # 创建开发团队 / 研究团队
-python3 ~/.qwenpaw/workspaces/default/skills/multi_agent_collab/multi_agent_setup.py --team dev
-python3 ~/.qwenpaw/workspaces/default/skills/multi_agent_collab/multi_agent_setup.py --team research
+python3 ~/.qwenpaw/workspaces/default/skills/multi-agent-copaw/multi_agent_setup.py --team dev
+python3 ~/.qwenpaw/workspaces/default/skills/multi-agent-copaw/multi_agent_setup.py --team research
 
 # 创建单个智能体
-python3 ~/.qwenpaw/workspaces/default/skills/multi_agent_collab/multi_agent_setup.py \
+python3 ~/.qwenpaw/workspaces/default/skills/multi-agent-copaw/multi_agent_setup.py \
   --name "我的智能体" \
   --role coordinator \
   --id my_agent
@@ -54,7 +54,7 @@ CoPaw Console → Settings → Agent Management → 新建智能体（推荐，�
 ## 📁 文件结构
 
 ```
-multi_agent_collab/
+multi-agent-copaw/
 ├── SKILL.md              # 技能完整文档（2.0 流程、REST API、spawn_subagent、错误处理）
 ├── QUICKSTART.md         # 5 分钟快速开始指南
 ├── TEMPLATES.md          # 角色模板库
