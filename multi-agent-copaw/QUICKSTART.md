@@ -98,15 +98,18 @@ EOF
 ### 步骤 3: 启用协作技能（智能体互聊的前提）
 
 ```bash
-# 为每个参与协作的智能体启用 multi_agent_collaboration
-qwenpaw skills enable multi_agent_collaboration --agent-id coordinator
-qwenpaw skills enable multi_agent_collaboration --agent-id researcher
-qwenpaw skills enable multi_agent_collaboration --agent-id writer
-qwenpaw skills enable multi_agent_collaboration --agent-id reviewer
+# 为每个参与协作的智能体启用 multi_agent_collaboration（交互式：找到该技能，空格勾选，回车保存）
+qwenpaw skills config --agent-id coordinator
+qwenpaw skills config --agent-id researcher
+qwenpaw skills config --agent-id writer
+qwenpaw skills config --agent-id reviewer
 
-# 查询启用状态
-qwenpaw skills list --agent-id coordinator --status enabled
+# 查询启用状态（✓ enabled 行）
+qwenpaw skills list --agent-id coordinator
 ```
+
+> ⚠️ CLI 没有 `skills enable` 子命令，批量启用只能逐个交互执行，或改为直接编辑各工作区的
+> `skill.json`（为 `multi_agent_collaboration` 增加 `{"enabled": true}` 条目），约 2 秒热加载生效。
 
 （或在 Console：Workspace → Skills 中勾选。）
 
@@ -118,7 +121,7 @@ qwenpaw skills list --agent-id coordinator --status enabled
 qwenpaw agents list          # 应看到全部新智能体（ID/名称/description/工作区）
 ```
 
-- 新智能体未出现 → 兜底执行 `qwenpaw daemon restart` 后再验证
+- 新智能体未出现 → 先执行 `qwenpaw daemon reload-config`（重读配置）；仍无效则按 `qwenpaw daemon restart` 打印的指引重启进程（该命令本身不重启）
 - 服务未启动 → 先 `qwenpaw app` 启动
 
 ### 步骤 5: 测试协作

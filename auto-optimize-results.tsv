@@ -1,3 +1,7 @@
 timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 2026-09-03T09:30	baseline	multi-agent-copaw	-	49	baseline	-	初始评估（v1.0，基于 CoPaw 1.0：copaw CLI/~/.copaw/8088 API）	dry_run
 2026-09-03T00:39	pending	multi-agent-copaw	49	87	keep	全维度重写	适配 CoPaw 2.0（qwenpaw CLI、~/.qwenpaw、/api/agents+X-Agent-Id、PROFILE.md 自动生成、热加载），builtin_skill_version→2.1；同步更新脚本/QUICKSTART/README/TEMPLATES/skill.json；git commit 待补（权限审查 502 阻塞）	dry_run
+2026-09-03T01:49	baseline	multi-agent-copaw	-	77	baseline	-	QwenPaw 2.1.0 实测：agents list/跨智能体对话/spawn_subagent/搭建脚本沙箱/REST API 通过；发现 skills enable 不存在、skills list 无 --status、daemon restart 仅打印指引、REST 表 /api/agent/* 实为 /api/workspace*（此前 dry_run 估分 87 偏高，实测校准为 77）	full_test
+2026-09-03T01:55	c9da4a1	multi-agent-copaw	77	79	keep	Frontmatter质量	技能名 multi_agent_collab→multi-agent-copaw 与目录名统一（SKILL.md/skill.json/README；multi_agent_collaboration 内置技能名未动）	full_test
+2026-09-03T02:00	c3b2bf0	multi-agent-copaw	79	85	keep	效果/指令具体性	修复P0：qwenpaw skills enable 不存在→skills config 交互/skill.json 直改；skills list 去掉无效 --status；同步 QUICKSTART/README/脚本输出	full_test
+2026-09-03T02:06	cc898e9	multi-agent-copaw	85	88	keep	效果/指令具体性	daemon restart 仅打印指引→兜底改 daemon reload-config；REST 表 /api/agent/*→/api/workspace*；--agent-id 支持范围精确化；版本 2.1.1+更新日志+.gitignore	full_test
