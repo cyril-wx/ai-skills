@@ -1,6 +1,6 @@
 # CoPaw 2.0 多智能体协作技能 (multi-agent-copaw)
 
-🤝 **快速搭建和管理 CoPaw 2.0 多智能体协作系统**（`builtin_skill_version: 2.1`）
+🤝 **快速搭建和管理 CoPaw 2.0 多智能体协作系统**（`builtin_skill_version: 2.1.1`）
 
 > 本技能仅支持 **CoPaw 2.0**（CLI: `qwenpaw`，默认工作目录 `~/.qwenpaw`）。
 > 1.0（`copaw` CLI / `~/.copaw`）用户请先备份并升级 CoPaw 至 2.0。
@@ -197,7 +197,10 @@ qwenpaw skills list --agent-id <agent_id>
 qwenpaw daemon status
 qwenpaw daemon logs --follow
 
-# 兜底重启（配置约 2 秒热加载，通常无需重启）
+# 兜底：先重读配置（配置约 2 秒热加载，通常无需重启）
+qwenpaw daemon reload-config
+
+# 仍无效时：按此命令打印的指引手动重启进程（命令本身只打印指引，不执行重启）
 qwenpaw daemon restart
 ```
 
@@ -234,12 +237,20 @@ qwenpaw daemon restart
 
 ## 📝 更新日志
 
+### v2.1.1 (2026-09-03)
+
+- ✅ 全流程在 QwenPaw 2.1.0 实测校准（`agents list` / 跨智能体对话 / `spawn_subagent` / 搭建脚本 / REST API）
+- ✅ 修复不存在的 `qwenpaw skills enable` 命令与 `skills list --status` 无效参数（改为 `skills config` 交互勾选或直改 `skill.json`）
+- ✅ 修正 `daemon restart` 兜底说明：该命令仅打印重启指引、不实际重启进程；优先 `daemon reload-config`
+- ✅ REST 表智能体级 API `/api/agent/*` 更正为 `/api/workspace*`（含 checkpoints/git）；标注 cron/config 为前缀路由
+- ✅ 技能名 `multi_agent_collab` 统一为 `multi-agent-copaw`（与目录名一致）
+
 ### v2.1 (2026-09-03)
 
 - ✅ 全面适配 CoPaw 2.0（`qwenpaw` CLI、`~/.qwenpaw` 目录、新 REST API `/api/agents` + `X-Agent-Id`）
 - ✅ 1.0 用户引导升级（环境探测 + 备份升级提示）；不再兼容 1.0
 - ✅ PROFILE.md 改为系统自动生成，脚本与指南不再手写
-- ✅ 新增协作技能启用流程（`qwenpaw skills enable multi_agent_collaboration --agent-id`）
+- ✅ 新增协作技能启用流程（`qwenpaw skills config --agent-id` 交互勾选，或直改 `skill.json`）
 - ✅ 新增 `spawn_subagent`、后台任务（`--background`/`--task-id`）、热加载（约 2 秒）说明
 - ✅ 搭建脚本 `multi_agent_setup.py` 适配 2.0（环境检查、profile 合并注册）
 - ✅ 修复 README 中的错误硬编码路径（`/app/working/...` → `~/.qwenpaw/...`）

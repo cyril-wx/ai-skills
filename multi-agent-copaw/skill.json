@@ -9,7 +9,7 @@
       "metadata": {
         "name": "multi-agent-copaw",
         "description": "CoPaw 2.0 多智能体协作技能 — 快速搭建、配置和管理多智能体协作系统（qwenpaw CLI，仅支持 CoPaw 2.0）",
-        "version_text": "2.1",
+        "version_text": "2.1.1",
         "commit_text": "",
         "signature": "",
         "source": "local",

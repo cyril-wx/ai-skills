@@ -3,7 +3,7 @@ name: multi-agent-copaw
 description: "CoPaw 2.0 多智能体协作技能 — 搭建、配置和管理多智能体协作系统：创建智能体、启用 multi_agent_collaboration 协作技能、智能体间对话、后台任务、spawn_subagent 子任务、结果汇总。触发词：多智能体、多智能体协作、智能体团队、agent 协作、多个智能体、让别的智能体、CoPaw 多智能体、multi-agent collaboration、智能体互聊。"
 metadata:
   {
-    "builtin_skill_version": "2.1",
+    "builtin_skill_version": "2.1.1",
     "copaw":
       {
         "emoji": "🤝",
@@ -150,7 +150,7 @@ qwenpaw agents chat \
   --text "请研究人工智能的最新发展"
 ```
 
-- 新智能体未出现在列表中 → 兜底执行 `qwenpaw daemon restart` 后再验证
+- 新智能体未出现在列表中 → 先执行 `qwenpaw daemon reload-config`（重读配置文件）；仍无效则按 `qwenpaw daemon restart` 打印的指引重启服务进程（该命令本身不重启进程）
 - 对话无响应 → 检查该智能体是否启用了协作技能、`description` 是否为空、日志（`qwenpaw daemon logs`）
 
 ## 智能体间通信（chat_with_agent）
@@ -184,7 +184,7 @@ qwenpaw agents chat --background --task-id <task_id>
 
 ### 多智能体感知 CLI 参数
 
-支持 `--agent-id` 的命令（默认 `default`）：`qwenpaw channels`、`cron`、`daemon`、`chats`、`skills`。
+支持 `--agent-id` 的 CLI 子命令（默认 `default`）：`skills config/list`、`cron *`、`chats *`、`channels *`（子命令级）、`daemon status`（`daemon logs` 不支持）。
 全局操作（不支持 `--agent-id`）：`qwenpaw init`、`providers`、`models`、`env`。
 
 ## spawn_subagent 子任务（当前工作区内，2.0 能力）
@@ -241,7 +241,9 @@ Base URL：`http://<host>:<port>/api` — host/port 以 `config.json` 中 `last_
 
 ### 智能体级 API（`X-Agent-Id` 头）
 
-`/api/chats/*`（会话）、`/api/cron/*`（定时任务）、`/api/config/*`（渠道/心跳）、`/api/skills/*`（技能）、`/api/tools/*`（工具）、`/api/mcp/*`（MCP）、`/api/agent/*`（工作区文件与记忆）
+`/api/chats/*`（会话）、`/api/cron/*`（定时任务，如 `/cron/jobs`）、`/api/config/*`（渠道/心跳）、`/api/skills/*`（技能）、`/api/tools/*`（工具）、`/api/mcp/*`（MCP）、`/api/workspace*`（工作区文件，含 `/workspace/checkpoints`、`/workspace/git`）
+
+> 注意：`/api/cron`、`/api/config` 等是前缀路由，请求需带子路径（裸前缀返回 404 属正常）。
 
 ```bash
 # 获取指定智能体的会话列表
@@ -334,7 +336,7 @@ A → B → C → 结果
 | CLI 未安装 / 服务未启动 | 引导 `qwenpaw init` / `qwenpaw app` |
 | 智能体 ID 已存在 | 换 ID 或征询用户是否覆盖；API/Console 会返回冲突并给出建议的新名 |
 | 保存配置返回 409 | 重新读取最新文件后再修改（系统拒绝基于旧快照的写入） |
-| 新智能体未加载 | `qwenpaw daemon restart` 兜底后重查 `qwenpaw agents list` |
+| 新智能体未加载 | 先 `qwenpaw daemon reload-config` 重读配置；仍无效则按 `qwenpaw daemon restart` 打印的指引重启进程（该命令只打印指引），再重查 `qwenpaw agents list` |
 | 后台任务 `failed` | 用 `--task-id` 查状态详情，结合 `qwenpaw daemon logs` 定位（可调 `QWENPAW_LOG_LEVEL=debug`） |
 | 协作无响应 | 核对：双方是否都启用 `multi_agent_collaboration`、description 是否具体、`X-Agent-Id`/`--agent-id` 是否拼写正确 |
 | `spawn_subagent(fork=True)` 无 git 仓库 | 属正常降级（原地 fork，无文件隔离），向用户说明 |
@@ -359,7 +361,7 @@ A → B → C → 结果
 - **切换智能体会丢对话吗？** 不会。每个智能体的会话历史独立保存。
 - **多智能体增加成本吗？** 空闲智能体不调用 LLM，不产生费用；协作时因多次调用会高于单智能体。
 - **可以同时用多个智能体吗？** 可以。不同智能体绑定不同渠道（如钉钉 + Discord）时并行响应。
-- **如何调试？** `qwenpaw daemon status` / `qwenpaw daemon logs`（支持 `--agent-id`），必要时 `QWENPAW_LOG_LEVEL=debug`。
+- **如何调试？** `qwenpaw daemon status --agent-id <id>` / `qwenpaw daemon logs`（logs 不支持 `--agent-id`），必要时 `QWENPAW_LOG_LEVEL=debug`。
 
 ## 文件索引
 
@@ -372,7 +374,7 @@ A → B → C → 结果
 
 ---
 
-**版本：** 2.1（对齐 CoPaw 2.0 生态）
+**版本：** 2.1.1（对齐 CoPaw 2.0 生态，QwenPaw 2.1.0 实测校准）
 **兼容 CoPaw：** 2.0（`qwenpaw` CLI）；1.0 用户请先升级
 **最后更新：** 2026-09-03
 **参考文档：** [Multi-Agent](https://qwenpaw.agentscope.io/docs/multi-agent) · [Config](https://qwenpaw.agentscope.io/docs/config) · [Skills](https://qwenpaw.agentscope.io/docs/skills)

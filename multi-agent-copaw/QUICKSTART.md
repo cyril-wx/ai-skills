@@ -121,7 +121,7 @@ qwenpaw skills list --agent-id coordinator
 qwenpaw agents list          # 应看到全部新智能体（ID/名称/description/工作区）
 ```
 
-- 新智能体未出现 → 兜底执行 `qwenpaw daemon restart` 后再验证
+- 新智能体未出现 → 先执行 `qwenpaw daemon reload-config`（重读配置）；仍无效则按 `qwenpaw daemon restart` 打印的指引重启进程（该命令本身不重启）
 - 服务未启动 → 先 `qwenpaw app` 启动
 
 ### 步骤 5: 测试协作

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-CoPaw 2.0 多智能体协作 - 快速搭建工具（builtin_skill_version 2.1）
+CoPaw 2.0 多智能体协作 - 快速搭建工具（builtin_skill_version 2.1.1）
 
 仅适用于 CoPaw 2.0（CLI: qwenpaw，工作目录默认 ~/.qwenpaw）。
 1.0（copaw CLI / ~/.copaw）用户请先升级 CoPaw 至 2.0。
@@ -521,7 +521,7 @@ def main():
         print("  1. 验证智能体: qwenpaw agents list")
         print("  2. 启用协作技能: qwenpaw skills config --agent-id <agent_id>（交互式勾选 multi_agent_collaboration；或编辑各工作区 skill.json 增加 {\"enabled\": true} 条目）")
         print("  3. 开始协作: qwenpaw agents chat --from-agent default --to-agent <agent_id> --text '...'")
-        print("  （若新智能体未出现在列表中，兜底执行: qwenpaw daemon restart）")
+        print("  （若新智能体未出现在列表中，先执行: qwenpaw daemon reload-config；仍无效按 qwenpaw daemon restart 打印的指引重启进程）")
         print()
 
 
