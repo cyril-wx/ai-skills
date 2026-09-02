@@ -187,9 +187,11 @@ A → B → C → 结果
 # 查看所有智能体
 qwenpaw agents list
 
-# 启用/查询协作技能
-qwenpaw skills enable multi_agent_collaboration --agent-id <agent_id>
-qwenpaw skills list --agent-id <agent_id> --status enabled
+# 启用协作技能（交互式：找到 multi_agent_collaboration，空格勾选，回车保存）
+qwenpaw skills config --agent-id <agent_id>
+
+# 查询技能启用状态（✓ enabled 行）
+qwenpaw skills list --agent-id <agent_id>
 
 # 查看服务状态 / 日志
 qwenpaw daemon status

@@ -123,13 +123,15 @@ python3 <skill_dir>/multi_agent_setup.py --batch agents_config.json
 ## Step 3: 启用协作技能（多智能体互聊的前提）
 
 ```bash
-# 交互方式：找到 multi_agent_collaboration，空格切换，回车保存
+# 交互方式（CLI 唯一方式）：找到 multi_agent_collaboration，空格切换，回车保存
 qwenpaw skills config --agent-id <agent_id>
 
-# 或直接启用/查询
-qwenpaw skills enable multi_agent_collaboration --agent-id <agent_id>
-qwenpaw skills list --agent-id <agent_id> --status enabled
+# 查询启用状态（✓ enabled 行）
+qwenpaw skills list --agent-id <agent_id>
 ```
+
+> ⚠️ `qwenpaw skills enable` 命令**不存在**，不要使用；`skills list` 也没有 `--status` 参数。
+> 需要非交互/脚本化启用时：直接编辑目标智能体工作区的 `skill.json`，为 `multi_agent_collaboration` 增加/修改 `{"enabled": true}` 条目，约 2 秒热加载生效。
 
 Console 方式：切换到该智能体 → Workspace → Skills → 勾选 **Multi-Agent Collaboration** → Save。
 

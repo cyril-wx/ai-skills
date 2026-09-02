@@ -519,7 +519,7 @@ def main():
         print()
         print("下一步（配置约 2 秒热加载，无需重启）:")
         print("  1. 验证智能体: qwenpaw agents list")
-        print("  2. 启用协作技能: qwenpaw skills enable multi_agent_collaboration --agent-id <agent_id>")
+        print("  2. 启用协作技能: qwenpaw skills config --agent-id <agent_id>（交互式勾选 multi_agent_collaboration；或编辑各工作区 skill.json 增加 {\"enabled\": true} 条目）")
         print("  3. 开始协作: qwenpaw agents chat --from-agent default --to-agent <agent_id> --text '...'")
         print("  （若新智能体未出现在列表中，兜底执行: qwenpaw daemon restart）")
         print()
