@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "prompt": "帮我在 CoPaw 里搭一个多智能体协作团队：协调者、研究员、作家、审核员，组成内容创作流水线。搭好后让协调者协调团队写一篇关于人工智能的科普文章。",
+    "expected": "先执行 Step 0 环境探测（qwenpaw --version / agents list）；与用户确认 4 个智能体的 ID/名称/description（3-5 个为宜）后创建；通过 Console 或脚本/文件方式创建，profile 含 enabled:true；为每个智能体启用 multi_agent_collaboration 技能；用 qwenpaw agents list 验证（热加载约 2 秒，不重启）；用 qwenpaw agents chat 发起协作。不手写 PROFILE.md、不创建 chats.json/jobs.json、不硬编码端口、不默认 daemon restart。"
+  },
+  {
+    "id": 2,
+    "prompt": "我想搭建多智能体协作系统，CoPaw 我已经装好了，帮我搞定。",
+    "expected": "先探测环境（qwenpaw / copaw CLI、$QWENPAW_WORKING_DIR）；若仅检测到 1.0（copaw CLI）：明确告知本技能仅支持 CoPaw 2.0，引导备份 ~/.copaw 并升级 CoPaw 2.0 后再继续；不得执行 1.0 操作（手写 PROFILE.md、copaw daemon restart、调用 8088 端口的 /agents API）。若两个 CLI 都不存在则引导安装并 qwenpaw init。"
+  },
+  {
+    "id": 3,
+    "prompt": "我已有 default 和 data_analyst 两个智能体。现在让 data_analyst 跑一个大而耗时的数据分析任务，同时我还想在当前项目里并行处理一个独立子任务，怎么安排？",
+    "expected": "跨智能体长任务：qwenpaw agents chat --background --from-agent default --to-agent data_analyst --text '...'，用 --task-id 轮询状态（submitted→pending→running→finished）；当前项目内子任务：用 spawn_subagent（fork=False 空白会话 / fork=True 继承上下文并做 git worktree 隔离，无 git 仓库则原地 fork）；清楚区分两种机制的适用场景；失败时用 task 详情 + qwenpaw daemon logs 定位。"
+  }
+]

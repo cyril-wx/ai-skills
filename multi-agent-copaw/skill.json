@@ -1,0 +1,34 @@
+{
+  "schema_version": "workspace-skill-manifest.v1",
+  "version": 1788393600000,
+  "skills": {
+    "multi_agent_collab": {
+      "enabled": true,
+      "channels": ["all"],
+      "source": "local",
+      "metadata": {
+        "name": "multi_agent_collab",
+        "description": "CoPaw 2.0 多智能体协作技能 — 快速搭建、配置和管理多智能体协作系统（qwenpaw CLI，仅支持 CoPaw 2.0）",
+        "version_text": "2.1",
+        "commit_text": "",
+        "signature": "",
+        "source": "local",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-09-03T00:00:00Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "sync_to_pool": {
+        "status": "local",
+        "pool_name": "multi_agent_collab"
+      },
+      "updated_at": "2026-09-03T00:00:00Z"
+    }
+  }
+}
